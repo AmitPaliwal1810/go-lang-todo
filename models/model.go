@@ -23,3 +23,9 @@ type UpdateTodo struct {
 	TodoValue   string `json:"todoValue" db:"todovalue"`
 	IsCompleted bool   `json:"isCompleted" db:"iscompleted"`
 }
+
+type CreateUser struct {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}

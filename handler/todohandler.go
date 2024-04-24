@@ -6,15 +6,11 @@ import (
 	"net/http"
 
 	"github.com/AmitPaliwal1810/go-lang-todo/models"
-	"github.com/AmitPaliwal1810/go-lang-todo/provider"
 	"github.com/AmitPaliwal1810/go-lang-todo/provider/database"
 	"github.com/AmitPaliwal1810/go-lang-todo/provider/newDBHelper"
 )
 
 // server structure for serverInit
-type Server struct {
-	DbHelper provider.DBProvider
-}
 
 type Response struct {
 	Message string `json:"message"`

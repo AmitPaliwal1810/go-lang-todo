@@ -28,6 +28,10 @@ func main() {
 	r.Get("/getTodo", srv.GetTodo)
 	r.Put("/update-todo", srv.UpdateTodo)
 
+	// user routes
+
+	r.Post("/create-user", srv.CreateUser)
+
 	log.Println("Starting HTTP server")
 	http.HandleFunc("/info", InfoPage)
 	log.Println("server is starting on", portNum)
