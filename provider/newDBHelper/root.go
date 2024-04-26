@@ -18,11 +18,12 @@ func NewDbHelperProvider(db *sqlx.DB) provider.DBProvider {
 	}
 }
 
-func (dh DbHelper) InsertTodo(todo models.InsertTodo) error {
-	insertQuery := `INSERT INTO todos (todovalue, iscompleted) VALUES($1,$2)`
+//====================================== INSERT TODO ================================================================
 
-	// _, err := dh.DB.Exec(insertQuery, args)
-	_, err := dh.DB.Exec(insertQuery, todo.Todo, todo.IsCompleted)
+func (dh DbHelper) InsertTodo(todo models.InsertTodo) error {
+	insertQuery := `INSERT INTO todos (todo_value) VALUES($1)`
+
+	_, err := dh.DB.Exec(insertQuery, todo.Todo)
 
 	if err != nil {
 		return err
@@ -31,12 +32,14 @@ func (dh DbHelper) InsertTodo(todo models.InsertTodo) error {
 	return nil
 }
 
+//====================================== GET TODO =====================================================================
+
 func (dh DbHelper) GetTodos() ([]models.Todos, error) {
 	if dh.DB == nil {
 		return nil, fmt.Errorf("database connection is nil")
 	}
 
-	getQuery := `SELECT id, todovalue, iscompleted, createat FROM todos`
+	getQuery := `SELECT id, todo_value, is_completed, created_at FROM todos`
 	var todos []models.Todos
 	err := dh.DB.Select(&todos, getQuery)
 	if err != nil {
@@ -51,9 +54,11 @@ func (dh DbHelper) GetTodos() ([]models.Todos, error) {
 	return todos, nil
 }
 
+//======================================= UPDATE TODO =====================================================================
+
 func (dh DbHelper) UpdateTodo(todo models.UpdateTodo) error {
 
-	updateQuery := `UPDATE todos SET todovalue=$1, iscompleted=$2 WHERE id=$3`
+	updateQuery := `UPDATE todos SET todo_value=$1, is_completed=$2 WHERE id=$3`
 
 	_, err := dh.DB.Exec(updateQuery, todo.TodoValue, todo.IsCompleted, todo.Id)
 

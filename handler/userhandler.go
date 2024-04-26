@@ -33,3 +33,53 @@ func (srv *Server) CreateUser(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(w).Encode(response)
 
 }
+
+func (srv *Server) GetAllUsers(w http.ResponseWriter, r *http.Request) {
+	data, err := srv.DbHelper.GetAllUsers()
+
+	if err != nil {
+		fmt.Println("getting error while executing getAlluser", err)
+	}
+
+	_ = json.NewEncoder(w).Encode(data)
+}
+
+func (srv *Server) DeleteUser(w http.ResponseWriter, r *http.Request) {
+	var userData models.DeleteUser
+	err := json.NewDecoder(r.Body).Decode(&userData)
+
+	if err != nil {
+		return
+	}
+
+	err = srv.DbHelper.DeleteUser(userData)
+
+	if err != nil {
+		fmt.Println("err", err)
+		return
+	}
+
+	response := Response{Message: "succeessfully delete"}
+
+	_ = json.NewEncoder(w).Encode(response)
+}
+
+func (srv *Server) UpdateUser(w http.ResponseWriter, r *http.Request) {
+	var userData models.UpdateUser
+
+	err := json.NewDecoder(r.Body).Decode(&userData)
+
+	if err != nil {
+		return
+	}
+
+	err = srv.DbHelper.UpdateUser(userData)
+
+	if err != nil {
+		return
+	}
+
+	respose := Response{Message: "Successfully updated"}
+
+	_ = json.NewEncoder(w).Encode(respose)
+}
