@@ -46,3 +46,8 @@ type UpdateUser struct {
 	Email    string `json:"email" db:"email"`
 	Password string `json:"password" db:"password"`
 }
+
+type Login struct {
+	Email    string `json:"email" db:"email"`
+	Password string `json:"password" db:"password"`
+}

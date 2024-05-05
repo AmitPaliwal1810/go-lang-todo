@@ -31,9 +31,11 @@ func main() {
 	// user routes
 
 	r.Post("/create-user", srv.CreateUser)
+	r.Post("/create-user", srv.CreateUser)
 	r.Get("/all-users", srv.GetAllUsers)
 	r.Put("/update-user", srv.UpdateUser)
 	r.Put("/delete-user", srv.DeleteUser)
+	r.Post("/login", srv.LoginUser)
 
 	log.Println("Starting HTTP server")
 	http.HandleFunc("/info", InfoPage)
