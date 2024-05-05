@@ -15,4 +15,9 @@ type UserDbProvider interface {
 	GetAllUsers() ([]models.User, error)
 	DeleteUser(user models.DeleteUser) error
 	UpdateUser(user models.UpdateUser) error
+	LoginUser(user models.Login) (models.UpdateUser, error)
+}
+
+type HelperFuncProvider interface {
+	HashPassword(string) (string, error)
 }
